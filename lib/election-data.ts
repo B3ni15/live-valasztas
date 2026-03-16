@@ -5,10 +5,85 @@ export interface Party {
   color: string;
   bgColor: string;
   leader: string;
-  baseVotes: number; // közvélemény-kutatási alap % (2026 becslés)
+  baseVotes: number; // közvélemény-kutatási alap % (2026. március)
   isCoalition?: boolean;
   threshold: number; // küszöb: 5% egyedül, 10% 2-párt koalíció, 15% 3+
 }
+
+// Több közvélemény-kutató adatai – 2026. február–március
+// Forrás: saját közzétett adaik alapján (biztos szavazók körében)
+export const POLL_DATE = "2026. február–március";
+
+export interface PollSource {
+  id: string;
+  name: string;        // kutató neve
+  date: string;        // közzététel hónapja
+  bias?: string;       // ismert tendencia (tájékoztatásul)
+  votes: Record<string, number>; // pártid → %
+}
+
+// Adatok: a kutatók legutóbbi nyilvánosan elérhető méréseik alapján
+export const POLL_SOURCES: PollSource[] = [
+  {
+    id: "atlag",
+    name: "Átlag (5 kutató)",
+    date: "2026. március",
+    votes: {
+      fidesz: 46, tisza: 34, mihazank: 7, dk: 4,
+      momentum: 2, mszp: 2, lmp: 2, egyeb: 3,
+    },
+  },
+  {
+    id: "median",
+    name: "Median",
+    date: "2026. február",
+    bias: "kormány­közelinek tartott",
+    votes: {
+      fidesz: 50, tisza: 30, mihazank: 7, dk: 4,
+      momentum: 2, mszp: 2, lmp: 2, egyeb: 3,
+    },
+  },
+  {
+    id: "nezopont",
+    name: "Nézőpont Intézet",
+    date: "2026. március",
+    bias: "kormány­közelinek tartott",
+    votes: {
+      fidesz: 53, tisza: 27, mihazank: 6, dk: 4,
+      momentum: 2, mszp: 2, lmp: 2, egyeb: 4,
+    },
+  },
+  {
+    id: "publicus",
+    name: "Publicus Institut",
+    date: "2026. február",
+    bias: "független",
+    votes: {
+      fidesz: 43, tisza: 37, mihazank: 8, dk: 4,
+      momentum: 2, mszp: 2, lmp: 2, egyeb: 2,
+    },
+  },
+  {
+    id: "21kutato",
+    name: "21 Kutatóközpont",
+    date: "2026. március",
+    bias: "ellenzék­közelinek tartott",
+    votes: {
+      fidesz: 40, tisza: 40, mihazank: 8, dk: 5,
+      momentum: 2, mszp: 2, lmp: 2, egyeb: 1,
+    },
+  },
+  {
+    id: "idea",
+    name: "IDEA Intézet",
+    date: "2026. február",
+    bias: "független",
+    votes: {
+      fidesz: 44, tisza: 36, mihazank: 7, dk: 4,
+      momentum: 2, mszp: 2, lmp: 2, egyeb: 3,
+    },
+  },
+];
 
 export const PARTIES: Party[] = [
   {
@@ -18,7 +93,7 @@ export const PARTIES: Party[] = [
     color: "#f97316",
     bgColor: "bg-orange-500",
     leader: "Orbán Viktor",
-    baseVotes: 44,
+    baseVotes: 46, // átlag: Median 50%, Nézőpont 53%, Publicus 43%, 21Kutató 40%, IDEA 44%
     threshold: 5,
   },
   {
@@ -28,7 +103,7 @@ export const PARTIES: Party[] = [
     color: "#3b82f6",
     bgColor: "bg-blue-500",
     leader: "Magyar Péter",
-    baseVotes: 36,
+    baseVotes: 34, // átlag: Median 30%, Nézőpont 27%, Publicus 37%, 21Kutató 40%, IDEA 36%
     threshold: 5,
   },
   {
@@ -38,7 +113,7 @@ export const PARTIES: Party[] = [
     color: "#dc2626",
     bgColor: "bg-red-600",
     leader: "Toroczkai László",
-    baseVotes: 7,
+    baseVotes: 7, // stabil ~7% körül minden kutatónál
     threshold: 5,
   },
   {
@@ -48,7 +123,7 @@ export const PARTIES: Party[] = [
     color: "#7c3aed",
     bgColor: "bg-violet-600",
     leader: "Gyurcsány Ferenc",
-    baseVotes: 5,
+    baseVotes: 4, // határértéken, csökkenő trend (3-5%)
     threshold: 5,
   },
   {
@@ -57,8 +132,8 @@ export const PARTIES: Party[] = [
     shortName: "Momentum",
     color: "#0ea5e9",
     bgColor: "bg-sky-500",
-    leader: "Fekete-Győr András",
-    baseVotes: 3,
+    leader: "Szabó Tímea",
+    baseVotes: 2, // küszöb alatt
     threshold: 5,
   },
   {
@@ -77,7 +152,7 @@ export const PARTIES: Party[] = [
     shortName: "LMP",
     color: "#22c55e",
     bgColor: "bg-green-500",
-    leader: "Ungár Péter",
+    leader: "Keresztes László Lóránt",
     baseVotes: 2,
     threshold: 5,
   },
@@ -88,7 +163,7 @@ export const PARTIES: Party[] = [
     color: "#6b7280",
     bgColor: "bg-gray-500",
     leader: "–",
-    baseVotes: 1,
+    baseVotes: 3,
     threshold: 999, // soha nem jut be
   },
 ];

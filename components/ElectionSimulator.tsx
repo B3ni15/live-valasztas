@@ -7,6 +7,7 @@ import {
   getVotePercents,
   isEligible,
   TOTAL_SEATS,
+  POLL_DATE,
 } from "@/lib/election-data";
 import VoteChart from "@/components/VoteChart";
 import ParliamentChart from "@/components/ParliamentChart";
@@ -46,10 +47,10 @@ export default function ElectionSimulator() {
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-              🇭🇺 Magyar Választási Szimulátor
+              🇭🇺 Magyar Választási Szimulátor 2026
             </h1>
             <p className="text-xs text-slate-500 mt-0.5">
-              2026-os országgyűlési választás becslés
+              Alaphelyzet: {POLL_DATE}-i közvélemény-kutatási átlagok
             </p>
           </div>
           <div className="flex gap-2">
@@ -77,8 +78,12 @@ export default function ElectionSimulator() {
             <strong>Hogyan működik?</strong> Húzd el a csúszkákat, hogy megváltoztasd az egyes
             pártok szavazatarányát. Az alkalmazás D&apos;Hondt módszerrel számolja ki a
             listás mandátumokat, az egyéni kerületeknél a győztes-vesz-mindent
-            elvet alkalmazza. Az 5% alatti pártok nem jutnak be az
-            Országgyűlésbe. Az adatok közvélemény-kutatáson alapuló becslések.
+            elvet alkalmazza. Az 5% alatti pártok nem jutnak be az            Országgyűlésbe. <br /><br />
+            <strong>Alaphelyzet:</strong> {POLL_DATE}-i közvélemény-kutatásokban az
+            első helyen áll a <strong>Fidesz–KDNP ~46%</strong>-kal, a TISZA
+            ~34%-kal második. A <strong>Mi Hazánk ~7%</strong>-ka körül stabilizálódott.
+            A <strong>DK ~4%</strong>-kal küszöbértéken van, a Momentum, MSZP, LMP
+            egyaránt 5% alatt mérhető.            Országgyűlésbe. Az adatok közvélemény-kutatáson alapuló becslések.
           </div>
         </div>
       )}
